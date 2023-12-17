@@ -1,8 +1,5 @@
-import React from "react";
-
+import React from "react"
 import { cover } from "../assets";
-import { styles } from "../utils";
-
 import "./Card.css";
 
 interface CardProps {
@@ -10,8 +7,10 @@ interface CardProps {
     id: number;
     src: string
   };
+  handleChoice: (card: { id: number; src: string }) => void;
+  flipped: boolean;
+  disabled: boolean;
 }
-
 
 const Card: React.FC<CardProps> = ({ card, handleChoice, flipped, disabled }) => {
 

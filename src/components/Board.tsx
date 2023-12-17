@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { cardImages } from "../constants"
 import Card from './Card';
@@ -6,14 +6,20 @@ import Card from './Card';
 interface Cards {
   id: number;
   src: string;
+  matched?:  boolean;
 }
 
 const Board = () => {
   const [cards, setCards] = useState<Cards[]>([]);
   const [turns, setTurns] = useState<number>(0);
 
-  const [choiceOne, setChoiceOne] = useState(null);
-  const [choiceTwo, setChoiceTwo] = useState(null);
+  // Without TypeScript
+  // const [choiceOne, setChoiceOne] = useState(null);
+  // const [choiceTwo, setChoiceTwo] = useState(null);
+
+  // With TypeScript
+  const [choiceOne, setChoiceOne] = useState<Cards | null>(null);
+  const [choiceTwo, setChoiceTwo] = useState<Cards | null>(null);
 
   const [disabled, setDisabled] = useState(false);
 
@@ -32,7 +38,7 @@ const Board = () => {
   // console.log(cards, turns);
 
   // Handle a choice
-  const handleChoice = (card) => {
+  const handleChoice = (card: Cards) => {
     // console.log(card);
 
     // If you click fast enough on a single choice one card,
@@ -104,7 +110,7 @@ const Board = () => {
               key={card.id} 
               card={card}
               handleChoice={handleChoice}
-              flipped={card === choiceOne || card === choiceTwo || card.matched}
+              flipped={(card === choiceOne || card === choiceTwo || card.matched) as boolean}
               disabled={disabled}
             />
           ))}
